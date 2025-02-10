@@ -98,6 +98,9 @@ def play():
             break
         if not bool(answers):
             print(Fore.WHITE + Back.BLACK + "Noice, Genius!")
+            for i in range(length):
+                print(Fore.GREEN + f"{i}\t", end="")
+                print(Fore.GREEN + lines[i], end='')
             ch = input(Fore.WHITE + "Do you wanna go again?? (0/1)")
             if ch == "0":
                 break
@@ -106,6 +109,6 @@ def play():
                 lines, answers, length = generate_algorithm_filler(FILES[choice][0], blanks = blanks)
 
 
-    print(Fore.BLACK + Back.WHITE + "Good Job, Senor Suy")
+    print(Fore.BLACK + Back.WHITE + "Good Job, to-be Bjarne")
 
 play()

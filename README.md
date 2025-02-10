@@ -14,7 +14,7 @@ If the error/warning prompts you to use a `virtual environment`, simply do:
 
 and
 
-`source ./.venv/source/bin/activate`
+`source ./.venv/bin/activate`
 
 and run `pip3 install -r requirements.txt` again.
 
