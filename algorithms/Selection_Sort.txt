@@ -1,0 +1,11 @@
+def selection_sort(l: list[int]):
+    n = len(l)
+    for i in range(n-1):
+        m = i
+        for j in range(i+1, n):
+            if l[j] < l[m]:
+                m = j
+        t = l[i]
+        l[i] = l[m]
+        l[m] = t 
+    return l
