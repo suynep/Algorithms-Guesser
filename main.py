@@ -5,13 +5,22 @@ import os
 init()
 
 BASE_PATH = "algorithms"
-BLANKS = 5
 
-def generate_algorithm_filler(algoTextFile: str, blanks=BLANKS):
+algos = os.listdir(BASE_PATH)
+
+FILES = {}
+
+
+for i in range(len(algos)):
+    FILES[i + 1] = [algos[i], os.path.splitext(algos[i])[0]]
+
+print(FILES)
+
+def generate_algorithm_filler(algoTextFile: str, blanks=3):
     """
     :param: `algoTextFile` is the path to the .txt file containing the pseudoCode/python-like 
             code for the specific algorithm
-    :param: `blanks` is the number of blank lines to show (*default = 1*)
+    :param: `blanks` is the number of blank lines to show (*default = 3*)
     """
     answers = {}
     selectedLines = []
@@ -22,7 +31,7 @@ def generate_algorithm_filler(algoTextFile: str, blanks=BLANKS):
 
         lines = {i: l[i] for i in range(len(l))}
 
-        # Generate Unique Line numbers to show as blanks
+        # Generate Unique Random Line numbers to show as blanks
         while blanks:
             r = randint(1, len(lines) - 1)
             if r not in selectedLines:
@@ -56,28 +65,21 @@ def play():
     ..:::::..::........:::......:::::.......:::..:::::..::....:::::..:::::..:::::..::..:::::..:::......:::::.......:::........:::......::::......:::........::..:::::..::
     """)
 
-
-        
-    #for a in answers.keys():
-    #    print(Fore.BLUE + answers[a])
     choice = 0
     while not choice:
         print(Fore.BLUE + "Choose an algorithm")
-        print("[1]\tSelection Sort\n[2]\tBubble Sort\n[3]\tMerge Sort")
-        while not choice:
-            choice = input(Fore.WHITE + "Choose: ")
-            if choice == "1":
-                lines, answers, length = generate_algorithm_filler("Selection_Sort.txt")
-                break
-            elif choice == "2":
-                lines, answers, length = generate_algorithm_filler("Bubble_Sort.txt")
-                break
-            elif choice == "3":
-                lines, answers, length = generate_algorithm_filler("Merge_Sort.txt")
-                break
-            else:
-                print(Fore.RED + "Please choose a valid value")
-                choice = 0
+        for f in list(FILES.keys()):
+            print(f"[{f}]\t{FILES[f][1]}")
+
+        choice = int(input(Fore.WHITE + "Choose: "))
+        try:
+            global blanks
+            blanks = int(input("Enter the number of Blank Lines: "))
+            lines, answers, length = generate_algorithm_filler(FILES[choice][0], blanks = blanks)
+        except:
+            print(Fore.RED + "Please choose a valid value")
+            choice = 0
+
 
     while True:
         for i in range(length):
@@ -98,17 +100,13 @@ def play():
                 print(Fore.RED + "That's incorrect :(")
             break
         if not bool(answers):
+            print(Fore.WHITE + Back.BLACK + "Noice, Genius!")
             ch = input(Fore.WHITE + "Do you wanna go again?? (0/1)")
             if ch == "0":
                 break
             else:
                 os.system('clear')
-                if choice == "1":
-                    lines, answers, length = generate_algorithm_filler("Selection_Sort.txt")
-                elif choice == "2":
-                    lines, answers, length = generate_algorithm_filler("Bubble_Sort.txt")
-                elif choice == "3":
-                    lines, answers, length = generate_algorithm_filler("Merge_Sort.txt")
+                lines, answers, length = generate_algorithm_filler(FILES[choice][0], blanks = blanks)
 
 
     print(Fore.BLACK + Back.WHITE + "Good Job, Senor Suy")
