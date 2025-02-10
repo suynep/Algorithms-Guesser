@@ -9,12 +9,9 @@ BASE_PATH = "algorithms"
 algos = os.listdir(BASE_PATH)
 
 FILES = {}
-
-
 for i in range(len(algos)):
     FILES[i + 1] = [algos[i], os.path.splitext(algos[i])[0]]
 
-print(FILES)
 
 def generate_algorithm_filler(algoTextFile: str, blanks=3):
     """
